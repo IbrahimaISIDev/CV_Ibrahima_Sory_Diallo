@@ -143,7 +143,7 @@ const CVPreview = () => {
                 },
                 {
                   institution: "Université Numérique Cheikh Hamidou Kane (ex-UVS)",
-                  degree: "Licence 2 en Informatique, Développement d'Applications Web/Mobile",
+                  degree: "Licence 2 en Informatique Développement d'Applications Web/Mobile",
                   period: "Octobre 2022 - Présent",
                 },
                 {
