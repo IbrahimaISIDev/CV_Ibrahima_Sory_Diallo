@@ -1,17 +1,24 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 import React, { useRef } from 'react';
 import { Mail, Phone, MapPin, Linkedin, Github, Globe, Download, Calendar, Briefcase, GraduationCap, Star, Award } from 'lucide-react';
-import { useReactToPrint } from 'react-to-print';
+import html2pdf from 'html2pdf.js'; // Import html2pdf
 import CodeImage from '/src/assets/Code-Image.jpeg';
 
 const CVPreview = () => {
   const componentRef = useRef();
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: 'CV_Ibrahima_Sory_Diallo',
-    onAfterPrint: () => alert('CV téléchargé avec succès!')
-  });
+  const handleDownload = () => {
+    const element = componentRef.current;
+    const options = {
+      margin: 1,
+      filename: 'CV_Ibrahima_Sory_Diallo.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    };
+
+    html2pdf().from(element).set(options).save();
+  };
 
   return (
     <div className="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
@@ -130,9 +137,14 @@ const CVPreview = () => {
                 },
                 {
                   institution: "Groupe ISI Suptech",
-                  degree: "Licence en Informatique",
+                  degree: "Licence 2 en Informatique",
                   period: "Décembre 2022 - Février 2024",
                   details: "Spécialisation en développement logiciel et systèmes d'information."
+                },
+                {
+                  institution: "Université Numérique Cheikh Hamidou Kane (ex-UVS)",
+                  degree: "Licence 2 en Informatique, Développement d'Applications Web/Mobile",
+                  period: "Octobre 2022 - Présent",
                 },
                 {
                   institution: "Lycée Blaise Diagne",
@@ -203,12 +215,10 @@ const CVPreview = () => {
       </div>
 
       <div className="mt-8 flex justify-center">
-        <button
-          onClick={handlePrint}
-          className="bg-yellow-400 text-gray-900 font-semibold py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-shadow duration-200"
-        >
-          Télécharger CV <Download className="inline-block w-5 h-5 ml-2" />
-        </button>
+      <button onClick={handleDownload} className="mt-4 px-4 py-2 bg-yellow-400 text-white rounded-lg">
+  Télécharger CV
+</button>
+
       </div>
     </div>
   );
